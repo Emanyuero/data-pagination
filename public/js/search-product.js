@@ -11,15 +11,17 @@ function searchProduct(){
     $("#search-button").on('click', async function(){
         const query = $("#search-product").val().trim();
 
+        $("#display-error").html('');
+
         if(!query){
-            displayError("Nothing to search");
+            displayError("Price Not Found.");
         }else{
             try {
                 const response = await fetch(`/api/search-product?search-product=${query}`);
                 const products = await response.json();
 
                 if(products.length === 0){
-                    displayError("Products not found.")
+                    displayError("Please enter the Valid Price Tag.")
                     displayNotFound();
                 }else{
                     loadProducts(products);
